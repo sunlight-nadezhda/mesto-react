@@ -19,7 +19,11 @@ function App() {
                         aria-label="Закрыть"
                         className="button popup__close-button"
                     ></button>
-                    <form className="popup__form" name="profile-about" noValidate>
+                    <form
+                        className="popup__form"
+                        name="profile-about"
+                        noValidate
+                    >
                         <label className="popup__form-field">
                             <input
                                 type="text"
@@ -110,7 +114,9 @@ function App() {
                             alt="Архыз"
                             className="figure__image"
                         />
-                        <figcaption className="figure__caption">Архыз</figcaption>
+                        <figcaption className="figure__caption">
+                            Архыз
+                        </figcaption>
                     </figure>
                 </div>
             </div>

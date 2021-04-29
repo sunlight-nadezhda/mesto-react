@@ -1,5 +1,13 @@
 .profile__avatar-edit {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-image: url(./../../../images/avatar.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   position: relative;
+  cursor: pointer;
 }
 
 .profile__avatar-edit::after {
