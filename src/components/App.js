@@ -1,50 +1,15 @@
 import React from 'react';
-import logo from './images/logo-white.svg';
-import avatar from './images/avatar.png';
+import Header from './Header';
+import Main from './Main';
+import Footer from './Footer';
 
 function App() {
     return (
         <div className="page">
           <div className="page__content">
-            <header className="header">
-                <a href="index.html" target="_self" className="logo">
-                  <img src={logo} alt="Логотип проекта Место" className="header__logo" />
-                </a>
-            </header>
-
-            <main>
-                <section className="profile">
-                    <div className="profile__avatar-edit">
-                        <img
-                            src={avatar}
-                            alt="Аватарка"
-                            className="profile__avatar"
-                        />
-                    </div>
-                    <div className="profile__about">
-                        <h1 className="profile__name">Жак-Ив Кусто</h1>
-                        <p className="profile__metier">Исследователь океана</p>
-                        <button
-                            type="button"
-                            aria-label="Редактировать"
-                            className="button profile__edit-button"
-                        ></button>
-                    </div>
-                    <button
-                        type="button"
-                        aria-label="Добавить"
-                        className="button profile__add-button"
-                    ></button>
-                </section>
-
-                <section aria-label="Карточки с местами">
-                    <ul className="elements"></ul>
-                </section>
-            </main>
-
-            <footer className="footer">
-                <p className="footer__text">&copy;&nbsp;2020 Mesto Russia</p>
-            </footer>
+            <Header />
+            <Main />
+            <Footer />
 
             <div className="overlay popup popup_type_profile">
                 <div className="popup__container">
