@@ -1,18 +1,22 @@
-import React from "react";
-import "./App.css";
+import React from 'react';
+import logo from './images/logo-white.svg';
+import avatar from './images/avatar.png';
 
 function App() {
     return (
-        <div className="page__content">
+        <div className="page">
+          <div className="page__content">
             <header className="header">
-                <a href="index.html" target="_self" className="logo"></a>
+                <a href="index.html" target="_self" className="logo">
+                  <img src={logo} alt="Логотип проекта Место" className="header__logo" />
+                </a>
             </header>
 
             <main>
                 <section className="profile">
                     <div className="profile__avatar-edit">
                         <img
-                            src="<%=require('./images/avatar.png')%>"
+                            src={avatar}
                             alt="Аватарка"
                             className="profile__avatar"
                         />
@@ -196,6 +200,7 @@ function App() {
                     </form>
                 </div>
             </div>
+          </div>
         </div>
     );
 }
