@@ -4,28 +4,28 @@ function Main() {
     React.useEffect(() => {
         function handleEditAvatarClick(event) {
             document
-                .querySelector('.popup_type_edit-avatar')
-                .classList.add('popup_opened');
+                .querySelector(".popup_type_edit-avatar")
+                .classList.add("popup_opened");
         }
         function handleEditProfileClick(event) {
             document
-                .querySelector('.popup_type_profile')
-                .classList.add('popup_opened');
+                .querySelector(".popup_type_profile")
+                .classList.add("popup_opened");
         }
         function handleAddPlaceClick(event) {
             document
-                .querySelector('.popup_type_add-card')
-                .classList.add('popup_opened');
+                .querySelector(".popup_type_add-card")
+                .classList.add("popup_opened");
         }
         document
-            .querySelector('.profile__avatar-edit')
-            .addEventListener('click', handleEditAvatarClick);
+            .querySelector(".profile__avatar-edit")
+            .addEventListener("click", handleEditAvatarClick);
         document
-            .querySelector('.profile__edit-button')
-            .addEventListener('click', handleEditProfileClick);
+            .querySelector(".profile__edit-button")
+            .addEventListener("click", handleEditProfileClick);
         document
-            .querySelector('.profile__add-button')
-            .addEventListener('click', handleAddPlaceClick);
+            .querySelector(".profile__add-button")
+            .addEventListener("click", handleAddPlaceClick);
         return () => {};
     });
     return (

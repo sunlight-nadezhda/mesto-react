@@ -3,6 +3,7 @@ import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
+import ImagePopup from "./ImagePopup";
 
 function App() {
     return (
@@ -105,25 +106,7 @@ function App() {
                     </button>
                 </PopupWithForm>
 
-                <div className="overlay popup popup_type_show-image">
-                    <div className="popup__container popup__container_type_show-image">
-                        <button
-                            type="button"
-                            aria-label="Закрыть"
-                            className="button popup__close-button"
-                        ></button>
-                        <figure className="figure">
-                            <img
-                                src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg"
-                                alt="Архыз"
-                                className="figure__image"
-                            />
-                            <figcaption className="figure__caption">
-                                Архыз
-                            </figcaption>
-                        </figure>
-                    </div>
-                </div>
+                <ImagePopup />
             </div>
         </div>
     );
