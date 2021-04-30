@@ -1,25 +1,10 @@
 import React from "react";
 
-function Main() {
-    function handleEditAvatarClick(event) {
-        document
-            .querySelector(".popup_type_edit-avatar")
-            .classList.add("popup_opened");
-    }
-    function handleEditProfileClick(event) {
-        document
-            .querySelector(".popup_type_profile")
-            .classList.add("popup_opened");
-    }
-    function handleAddPlaceClick(event) {
-        document
-            .querySelector(".popup_type_add-card")
-            .classList.add("popup_opened");
-    }
+function Main(props) {
     return (
         <main>
             <section className="profile">
-                <div className="profile__avatar-edit" onClick={handleEditAvatarClick}></div>
+                <div className="profile__avatar-edit" onClick={props.onEditAvatar}></div>
                 <div className="profile__about">
                     <h1 className="profile__name">Жак-Ив Кусто</h1>
                     <p className="profile__metier">Исследователь океана</p>
@@ -27,14 +12,14 @@ function Main() {
                         type="button"
                         aria-label="Редактировать"
                         className="button profile__edit-button"
-                        onClick={handleEditProfileClick}
+                        onClick={props.onEditProfile}
                     ></button>
                 </div>
                 <button
                     type="button"
                     aria-label="Добавить"
                     className="button profile__add-button"
-                    onClick={handleAddPlaceClick}
+                    onClick={props.onAddPlace}
                 ></button>
             </section>
 
