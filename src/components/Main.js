@@ -1,5 +1,6 @@
 import React from "react";
 import api from "./../utils/api";
+import Card from "./Card";
 
 function Main(props) {
     const [userName, setUserName] = React.useState("");
@@ -58,36 +59,9 @@ function Main(props) {
 
             <section aria-label="Карточки с местами">
                 <ul className="elements">
-                {
-                    cards.map((card) => (
-                        <li className="element" key={card._id}>
-                            <img
-                                className="element__image"
-                                src={card.link}
-                                alt={card.name}
-                            />
-                            <button
-                                type="button"
-                                aria-label="Удалить"
-                                className="button element__trash"
-                            ></button>
-                            <div className="element__info">
-                                <h2 className="element__title">{card.name}</h2>
-                                <div className="element__likes">
-                                    <button
-                                        type="button"
-                                        aria-label="Лайкнуть"
-                                        className="button element__like-button"
-                                    ></button>
-                                    <span
-                                        className="element__like-counter"
-                                        aria-label="Количество лайков"
-                                    >{card.likes.length}</span>
-                                </div>
-                            </div>
-                        </li>
-                    ))
-                }
+                    {cards.map((card) => (
+                        <Card card={card} key={card._id} />
+                    ))}
                 </ul>
             </section>
         </main>
