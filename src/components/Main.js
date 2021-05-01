@@ -24,7 +24,6 @@ function Main(props) {
         api.getInitialCards()
             .then((dataCard) => {
                 setCards(dataCard);
-                console.log(dataCard);
             })
             .catch((err) => {
                 console.log(err);
@@ -59,8 +58,8 @@ function Main(props) {
 
             <section aria-label="Карточки с местами">
                 <ul className="elements">
-                    {cards.map((card) => (
-                        <Card card={card} key={card._id} />
+                    {cards.map((cardInfo) => (
+                        <Card card={cardInfo} key={cardInfo._id} onCardClick={props.onShowImage} />
                     ))}
                 </ul>
             </section>

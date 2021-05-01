@@ -1,9 +1,17 @@
 import React from "react";
 
 function Card(props) {
+    function handleClick() {
+        props.onCardClick(props.card);
+    }
     return (
         <li className="element">
-            <img className="element__image" src={props.card.link} alt={props.card.name} />
+            <img
+                className="element__image"
+                src={props.card.link}
+                alt={props.card.name}
+                onClick={handleClick}
+            />
             <button
                 type="button"
                 aria-label="Удалить"
