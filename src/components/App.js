@@ -6,9 +6,13 @@ import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 
 function App() {
-    const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+    const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(
+        false
+    );
     const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-    const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+    const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(
+        false
+    );
 
     function handleEditAvatarClick(event) {
         setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -20,6 +24,14 @@ function App() {
 
     function handleAddPlaceClick(event) {
         setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
+    }
+
+    function closeAllPopups(event) {
+        if (event.target === event.currentTarget || event.key === 'Escape') {
+            setIsEditAvatarPopupOpen(false);
+            setIsEditProfilePopupOpen(false);
+            setIsAddPlacePopupOpen(false);
+        }
     }
 
     return (
@@ -38,6 +50,7 @@ function App() {
                 title="Редактировать профиль"
                 name="profile"
                 isOpen={isEditProfilePopupOpen}
+                onClose={closeAllPopups}
             >
                 <label className="popup__form-field">
                     <input
@@ -74,6 +87,7 @@ function App() {
                 title="Новое место"
                 name="add-card"
                 isOpen={isAddPlacePopupOpen}
+                onClose={closeAllPopups}
             >
                 <label className="popup__form-field">
                     <input
@@ -112,6 +126,7 @@ function App() {
                 title="Обновить аватар"
                 name="edit-avatar"
                 isOpen={isEditAvatarPopupOpen}
+                onClose={closeAllPopups}
             >
                 <label className="popup__form-field">
                     <input
