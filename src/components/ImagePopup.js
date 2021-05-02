@@ -1,12 +1,31 @@
 import React from "react";
 
 function ImagePopup(props) {
+    function onCloseByEsc(event) {
+        if (event.key === "Escape") {
+            props.onClose();
+        }
+    }
+
+    function onCloseByOverlay(event) {
+        if (event.target === event.currentTarget) {
+            props.onClose();
+        }
+    };
+
+    React.useEffect(() => {
+        document.addEventListener("keydown", onCloseByEsc);
+        return () => {
+            document.removeEventListener("keydown", onCloseByEsc);
+        };
+    });
+
     return (
         <div
             className={`overlay popup popup_type_show-image${
                 props.card.link && props.card.name ? " popup_opened" : ""
             }`}
-            onClick={props.onClose}
+            onClick={onCloseByOverlay}
         >
             <div className="popup__container popup__container_type_show-image">
                 <button

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
@@ -6,34 +6,32 @@ import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 
 function App() {
-    const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(
+    const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(
         false
     );
-    const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-    const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(
+    const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+    const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(
         false
     );
-    const [selectedCard, setSelectedCard] = React.useState({});
+    const [selectedCard, setSelectedCard] = useState({});
 
-    function handleEditAvatarClick(event) {
-        setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+    function handleEditAvatarClick() {
+        setIsEditAvatarPopupOpen(true);
     }
 
-    function handleEditProfileClick(event) {
-        setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
+    function handleEditProfileClick() {
+        setIsEditProfilePopupOpen(true);
     }
 
-    function handleAddPlaceClick(event) {
-        setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
+    function handleAddPlaceClick() {
+        setIsAddPlacePopupOpen(true);
     }
 
-    function closeAllPopups(event) {
-        if (event.target === event.currentTarget || event.key === "Escape") {
+    function closeAllPopups() {
             setIsEditAvatarPopupOpen(false);
             setIsEditProfilePopupOpen(false);
             setIsAddPlacePopupOpen(false);
             setSelectedCard({});
-        }
     }
 
     function handleCardClick(cardData) {

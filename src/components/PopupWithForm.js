@@ -1,9 +1,23 @@
 import React from "react";
 
 function PopupWithForm(props) {
+    function onCloseByEsc(event) {
+        if (event.key === "Escape") {
+            props.onClose();
+        }
+    }
+
+    function onCloseByOverlay(event) {
+        if (event.target === event.currentTarget) {
+            props.onClose();
+        }
+    };
+
     React.useEffect(() => {
-        document.addEventListener('keydown', props.onClose);
-        return () => {document.removeEventListener('keydown', props.onClose);}
+        document.addEventListener("keydown", onCloseByEsc);
+        return () => {
+            document.removeEventListener("keydown", onCloseByEsc);
+        };
     });
 
     return (
@@ -11,7 +25,7 @@ function PopupWithForm(props) {
             className={`overlay popup popup_type_${props.name}${
                 props.isOpen ? " popup_opened" : ""
             }`}
-            onClick={props.onClose}
+            onClick={onCloseByOverlay}
         >
             <div className="popup__container">
                 <h2 className="popup__title">{props.title}</h2>
