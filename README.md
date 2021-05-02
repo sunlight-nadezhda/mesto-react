@@ -70,3 +70,5 @@
 Потом на Github создается ветка `gh-pages`. \
 В нее копируется содержимое папки `build`. \
 Затем надо в настройках Github выбрать `gh-pages`.
+
+Смотрите раздел о [deployment on github-pages](https://create-react-app.dev/docs/deployment/#github-pages) для дополнительной информации.

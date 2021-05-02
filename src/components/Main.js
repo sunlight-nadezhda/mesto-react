@@ -9,21 +9,15 @@ function Main(props) {
     const [cards, setCards] = React.useState([]);
 
     React.useEffect(() => {
-        api.getUserInfo()
-            .then((userInfo) => {
-                setUserName(userInfo.name);
-                setUserAvatar(userInfo.avatar);
-                setUserDescription(userInfo.about);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }, []);
+        Promise.all([api.getUserInfo(), api.getInitialCards()])
+            .then((values) => {
+                const [userData, initialCards] = values;
 
-    React.useEffect(() => {
-        api.getInitialCards()
-            .then((dataCard) => {
-                setCards(dataCard);
+                setUserName(userData.name);
+                setUserAvatar(userData.avatar);
+                setUserDescription(userData.about);
+
+                setCards(initialCards);
             })
             .catch((err) => {
                 console.log(err);
@@ -59,7 +53,11 @@ function Main(props) {
             <section aria-label="Карточки с местами">
                 <ul className="elements">
                     {cards.map((cardInfo) => (
-                        <Card card={cardInfo} key={cardInfo._id} onCardClick={props.onShowImage} />
+                        <Card
+                            card={cardInfo}
+                            key={cardInfo._id}
+                            onCardClick={props.onShowImage}
+                        />
                     ))}
                 </ul>
             </section>
