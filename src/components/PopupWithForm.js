@@ -11,7 +11,7 @@ function PopupWithForm(props) {
             className={`overlay popup popup_type_${props.name}${
                 props.isOpen ? " popup_opened" : ""
             }`}
-            onMouseDown={props.onClose}
+            onClick={props.onClose}
         >
             <div className="popup__container">
                 <h2 className="popup__title">{props.title}</h2>
@@ -19,7 +19,7 @@ function PopupWithForm(props) {
                     type="button"
                     aria-label="Закрыть"
                     className="button popup__close-button"
-                    onMouseDown={props.onClose}
+                    onClick={props.onClose}
                 ></button>
                 <form className="popup__form" name={props.name} noValidate>
                     {props.children}

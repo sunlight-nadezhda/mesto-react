@@ -6,14 +6,14 @@ function ImagePopup(props) {
             className={`overlay popup popup_type_show-image${
                 Object.keys(props.card).length === 0 ? "" : " popup_opened"
             }`}
-            onMouseDown={props.onClose}
+            onClick={props.onClose}
         >
             <div className="popup__container popup__container_type_show-image">
                 <button
                     type="button"
                     aria-label="Закрыть"
                     className="button popup__close-button"
-                    onMouseDown={props.onClose}
+                    onClick={props.onClose}
                 ></button>
                 <figure className="figure">
                     <img
