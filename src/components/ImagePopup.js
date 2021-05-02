@@ -4,7 +4,7 @@ function ImagePopup(props) {
     return (
         <div
             className={`overlay popup popup_type_show-image${
-                Object.keys(props.card).length === 0 ? "" : " popup_opened"
+                props.card.link && props.card.name ? " popup_opened" : ""
             }`}
             onClick={props.onClose}
         >
