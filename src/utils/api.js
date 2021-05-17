@@ -88,6 +88,14 @@ class Api {
     .then(this._getResponseData);
   }
 
+  changeLikeCardStatus(cardId, isLiked, cardLikes) {
+    if (isLiked) {
+      return this.addLike(cardId, cardLikes);
+    } else {
+      return this.deleteLike(cardId);
+    }
+  }
+
   _getResponseData(response) {
     if (response.ok) {
       return response.json();

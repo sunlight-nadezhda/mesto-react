@@ -1,4 +1,4 @@
-.element__likes {
+.card__likes {
   display: flex;
   flex-direction: column;
   align-items: center;
