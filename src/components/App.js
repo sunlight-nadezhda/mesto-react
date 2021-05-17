@@ -6,6 +6,7 @@ import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import api from "./../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import EditProfilePopup from "./EditProfilePopup";
 
 function App() {
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -37,6 +38,13 @@ function App() {
         setSelectedCard(cardData);
     }
 
+    function handleUpdateUser(data) {
+        api.setUserInfo(data).then(userData => {
+            setCurrentUser(userData);
+            this.onClose();
+        });
+    }
+
     React.useEffect(() => {
         api.getUserInfo().then((userInfo) => {
             setCurrentUser(userInfo);
@@ -57,42 +65,11 @@ function App() {
                     <Footer />
                 </div>
 
-                <PopupWithForm
-                    title="Редактировать профиль"
-                    name="profile"
+                <EditProfilePopup
                     isOpen={isEditProfilePopupOpen}
                     onClose={closeAllPopups}
-                >
-                    <label className="popup__form-field">
-                        <input
-                            type="text"
-                            name="input-name-profile"
-                            placeholder="Название"
-                            className="popup__input popup__input_type_name-profile"
-                            id="input-name-profile"
-                            required
-                            minLength="2"
-                            maxLength="40"
-                        />
-                        <span className="popup__input-error input-name-profile-error"></span>
-                    </label>
-                    <label className="popup__form-field">
-                        <input
-                            type="text"
-                            name="input-metier-profile"
-                            placeholder="Ссылка на картинку"
-                            className="popup__input popup__input_type_metier-profile"
-                            id="input-metier-profile"
-                            required
-                            minLength="2"
-                            maxLength="200"
-                        />
-                        <span className="popup__input-error input-metier-profile-error"></span>
-                    </label>
-                    <button type="submit" className="popup__save-button">
-                        Сохранить
-                    </button>
-                </PopupWithForm>
+                    onUpdateUser={handleUpdateUser}
+                />
 
                 <PopupWithForm
                     title="Новое место"
