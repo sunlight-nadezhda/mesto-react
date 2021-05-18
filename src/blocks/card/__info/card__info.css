@@ -1,4 +1,4 @@
-.element__info {
+.card__info {
   width: calc(246 / 282 * 100%);
   margin: 25px auto;
   display: flex;

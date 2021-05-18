@@ -22,7 +22,7 @@ class Api {
       .then(this._getResponseData);
   }
 
-  sendLinkAvatar(data) {
+  setUserAvatar(data) {
     return fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
@@ -33,7 +33,7 @@ class Api {
       .then(this._getResponseData);
   }
 
-  sendUserInfo(data) {
+  setUserInfo(data) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
@@ -86,6 +86,14 @@ class Api {
       }
     })
     .then(this._getResponseData);
+  }
+
+  changeLikeCardStatus(cardId, isLiked, cardLikes) {
+    if (isLiked) {
+      return this.addLike(cardId, cardLikes);
+    } else {
+      return this.deleteLike(cardId);
+    }
   }
 
   _getResponseData(response) {
