@@ -7,6 +7,7 @@ import ImagePopup from "./ImagePopup";
 import api from "./../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 
 function App() {
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -39,7 +40,14 @@ function App() {
     }
 
     function handleUpdateUser(data) {
-        api.setUserInfo(data).then(userData => {
+        api.setUserInfo(data).then((userData) => {
+            setCurrentUser(userData);
+            this.onClose();
+        });
+    }
+
+    function handleUpdateAvatar(obj) {
+        api.setUserAvatar(obj.avatar).then((userData) => {
             setCurrentUser(userData);
             this.onClose();
         });
@@ -110,31 +118,11 @@ function App() {
                     </button>
                 </PopupWithForm>
 
-                <PopupWithForm
-                    title="Обновить аватар"
-                    name="edit-avatar"
+                <EditAvatarPopup
                     isOpen={isEditAvatarPopupOpen}
                     onClose={closeAllPopups}
-                >
-                    <label className="popup__form-field">
-                        <input
-                            type="url"
-                            name="input-link-edit-avatar"
-                            placeholder="Ссылка на аватарку"
-                            className="popup__input popup__input_type_link-avatar"
-                            id="input-link-edit-avatar"
-                            required
-                        />
-                        <span className="popup__input-error input-link-edit-avatar-error"></span>
-                    </label>
-                    <button
-                        type="submit"
-                        className="popup__save-button popup__save-button_inactive"
-                        disabled
-                    >
-                        Создать
-                    </button>
-                </PopupWithForm>
+                    onUpdateAvatar={handleUpdateAvatar}
+                />
 
                 <PopupWithForm title="Вы уверены?" name="confirm">
                     <button type="submit" className="popup__save-button">
