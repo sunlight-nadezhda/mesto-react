@@ -1,31 +1,51 @@
 import React from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { renderLoading } from "../utils/utils";
 
 function EditProfilePopup(props) {
     const [name, setName] = React.useState("");
     const [description, setDescription] = React.useState("");
+    const [isDisabled, setIsDisabled] = React.useState(true);
 
     // Подписка на контекст
     const currentUser = React.useContext(CurrentUserContext);
 
+    const submitButtonClassName = `popup__save-button ${
+        isDisabled ? "popup__save-button_inactive" : ""
+    }`;
+
+    function setDisabled() {
+        if (name === "" || description === "") {
+            setIsDisabled(true);
+        } else {
+            setIsDisabled(false);
+        }
+    }
+
     function handleChangeName(e) {
         setName(e.target.value);
+        setDisabled();
     }
 
     function handleChangeDescription(e) {
         setDescription(e.target.value);
+        setDisabled();
     }
 
     function handleSubmit(e) {
-      // Запрещаем браузеру переходить по адресу формы
-      e.preventDefault();
+        // Запрещаем браузеру переходить по адресу формы
+        e.preventDefault();
 
-      // Передаём значения управляемых компонентов во внешний обработчик
-      props.onUpdateUser({
-        name,
-        about: description,
-      });
+        // Передаём значения управляемых компонентов во внешний обработчик
+        props.onUpdateUser({
+            name,
+            about: description,
+        });
+
+        setName(currentUser.name);
+        setDescription(currentUser.about);
+        renderLoading(".popup_type_profile", true);
     }
 
     // После загрузки текущего пользователя из API
@@ -73,7 +93,12 @@ function EditProfilePopup(props) {
                 />
                 <span className="popup__input-error input-metier-profile-error"></span>
             </label>
-            <button type="submit" className="popup__save-button">
+            <button
+                type="submit"
+                className="popup__save-button"
+                className={submitButtonClassName}
+                disabled={isDisabled}
+            >
                 Сохранить
             </button>
         </PopupWithForm>
