@@ -4,13 +4,33 @@ import PopupWithForm from "./PopupWithForm";
 function AddPlacePopup(props) {
     const [title, setTitle] = React.useState("");
     const [link, setLink] = React.useState("");
+    const [isDisabled, setIsDisabled] = React.useState(true);
+
+    const submitButtonClassName = `popup__save-button ${
+        isDisabled ? "popup__save-button_inactive" : ""
+    }`;
+
+    function setDisabled() {
+        if (title === "" || link === "") {
+            setIsDisabled(true);
+        } else {
+            setIsDisabled(false);
+        }
+    }
 
     function handleChangeTitle(e) {
         setTitle(e.target.value);
+        setDisabled();
     }
 
     function handleChangeLink(e) {
         setLink(e.target.value);
+        setDisabled();
+    }
+
+    function handlePasteLink(e) {
+        setLink(e.clipboardData.getData('text/plain'));
+        setDisabled();
     }
 
     function handleSubmit(e) {
@@ -22,6 +42,16 @@ function AddPlacePopup(props) {
             name: title,
             link,
         });
+
+        setTitle("");
+        setLink("");
+    }
+
+    function handleClose() {
+        props.onClose();
+        setTitle("");
+        setLink("");
+        setDisabled();
     }
 
     React.useEffect(() => {
@@ -34,7 +64,7 @@ function AddPlacePopup(props) {
             title="Новое место"
             name="add-card"
             isOpen={props.isOpen}
-            onClose={props.onClose}
+            onClose={handleClose}
             onSubmit={handleSubmit}
         >
             <label className="popup__form-field">
@@ -57,6 +87,7 @@ function AddPlacePopup(props) {
                     type="url"
                     value={link}
                     onChange={handleChangeLink}
+                    onPaste={handlePasteLink}
                     name="input-link-add-card"
                     placeholder="Ссылка на картинку"
                     className="popup__input popup__input_type_link-card"
@@ -67,7 +98,8 @@ function AddPlacePopup(props) {
             </label>
             <button
                 type="submit"
-                className="popup__save-button popup__save-button_inactive"
+                className={submitButtonClassName}
+                disabled={isDisabled}
             >
                 Создать
             </button>

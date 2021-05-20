@@ -9,6 +9,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
+import { renderLoading } from "../utils/utils";
 
 function App() {
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -35,6 +36,9 @@ function App() {
         setIsEditProfilePopupOpen(false);
         setIsAddPlacePopupOpen(false);
         setSelectedCard({});
+        renderLoading(".popup_type_profile", true);
+        renderLoading(".popup_type_edit-avatar", true);
+        renderLoading(".popup_type_add-card", true);
     }
 
     function handleCardClick(cardData) {
@@ -42,17 +46,29 @@ function App() {
     }
 
     function handleUpdateUser(data) {
-        api.setUserInfo(data).then((userData) => {
-            setCurrentUser(userData);
-            this.onClose();
-        });
+        renderLoading(".popup_type_profile", false);
+        api.setUserInfo(data)
+            .then((userData) => {
+                renderLoading(".popup_type_profile", true);
+                setCurrentUser(userData);
+                this.onClose();
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     function handleUpdateAvatar(obj) {
-        api.setUserAvatar(obj.avatar).then((userData) => {
-            setCurrentUser(userData);
-            this.onClose();
-        });
+        renderLoading(".popup_type_edit-avatar", false);
+        api.setUserAvatar(obj.avatar)
+            .then((userData) => {
+                renderLoading(".popup_type_edit-avatar", true);
+                setCurrentUser(userData);
+                this.onClose();
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     function handleCardLike(card) {
@@ -64,26 +80,38 @@ function App() {
         }
 
         // Отправляем запрос в API и получаем обновлённые данные карточки
-        api.changeLikeCardStatus(card._id, !isLiked, cardLikes).then(
-            (newCard) => {
+        api.changeLikeCardStatus(card._id, !isLiked, cardLikes)
+            .then((newCard) => {
                 setCards((state) =>
                     state.map((c) => (c._id === card._id ? newCard : c))
                 );
-            }
-        );
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     function handleCardDelete(card) {
-        api.deleteCard(card._id).then(cardData => {
-            setCards((state) => state.filter(c => c._id !== card._id));
-        });
+        api.deleteCard(card._id)
+            .then((cardData) => {
+                setCards((state) => state.filter((c) => c._id !== card._id));
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     function handleAddPlaceSubmit(place) {
-        api.addCard(place).then(newCard => {
-            setCards([newCard, ...cards]);
-            this.onClose();
-        });
+        renderLoading(".popup_type_add-card", false);
+        api.addCard(place)
+            .then((newCard) => {
+                renderLoading(".popup_type_add-card", true);
+                setCards([newCard, ...cards]);
+                this.onClose();
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     React.useEffect(() => {
