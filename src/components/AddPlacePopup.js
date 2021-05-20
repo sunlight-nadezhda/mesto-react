@@ -47,6 +47,13 @@ function AddPlacePopup(props) {
         setLink("");
     }
 
+    function handleClose() {
+        props.onClose();
+        setTitle("");
+        setLink("");
+        setDisabled();
+    }
+
     React.useEffect(() => {
         setTitle("");
         setLink("");
@@ -57,7 +64,7 @@ function AddPlacePopup(props) {
             title="Новое место"
             name="add-card"
             isOpen={props.isOpen}
-            onClose={props.onClose}
+            onClose={handleClose}
             onSubmit={handleSubmit}
         >
             <label className="popup__form-field">

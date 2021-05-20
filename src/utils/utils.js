@@ -6,10 +6,10 @@ export const renderLoading = (popupSelector, isAvailable) => {
 
   if (isAvailable) {
     buttonSubmitElement.textContent = buttonValue;
-    // buttonSubmitElement.removeAttribute('disabled');
+    buttonSubmitElement.removeAttribute('disabled');
   } else {
     buttonSubmitElement.textContent = 'Сохранение...';
-    // buttonSubmitElement.setAttribute('disabled', true);
+    buttonSubmitElement.setAttribute('disabled', true);
   }
 };
 

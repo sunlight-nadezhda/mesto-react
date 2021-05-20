@@ -36,7 +36,9 @@ function App() {
         setIsEditProfilePopupOpen(false);
         setIsAddPlacePopupOpen(false);
         setSelectedCard({});
-        renderLoading(".popup_type_profile", false);
+        renderLoading(".popup_type_profile", true);
+        renderLoading(".popup_type_edit-avatar", true);
+        renderLoading(".popup_type_add-card", true);
     }
 
     function handleCardClick(cardData) {
@@ -100,8 +102,10 @@ function App() {
     }
 
     function handleAddPlaceSubmit(place) {
+        renderLoading(".popup_type_add-card", false);
         api.addCard(place)
             .then((newCard) => {
+                renderLoading(".popup_type_add-card", true);
                 setCards([newCard, ...cards]);
                 this.onClose();
             })
