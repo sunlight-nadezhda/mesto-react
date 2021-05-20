@@ -1,24 +1,11 @@
 import React from "react";
 
 function ImagePopup(props) {
-    function onCloseByEsc(event) {
-        if (event.key === "Escape") {
-            props.onClose();
-        }
-    }
-
     function onCloseByOverlay(event) {
         if (event.target === event.currentTarget) {
             props.onClose();
         }
     };
-
-    React.useEffect(() => {
-        document.addEventListener("keydown", onCloseByEsc);
-        return () => {
-            document.removeEventListener("keydown", onCloseByEsc);
-        };
-    });
 
     return (
         <div

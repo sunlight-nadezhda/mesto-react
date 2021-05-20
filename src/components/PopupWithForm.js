@@ -1,6 +1,11 @@
 import React from "react";
 
 function PopupWithForm(props) {
+
+    const submitButtonClassName = `popup__save-button ${
+        props.isDisabled ? "popup__save-button_inactive" : ""
+    }`;
+
     function onCloseByEsc(event) {
         if (event.key === "Escape") {
             props.onClose();
@@ -11,7 +16,7 @@ function PopupWithForm(props) {
         if (event.target === event.currentTarget) {
             props.onClose();
         }
-    };
+    }
 
     React.useEffect(() => {
         document.addEventListener("keydown", onCloseByEsc);
@@ -35,8 +40,20 @@ function PopupWithForm(props) {
                     className="button popup__close-button"
                     onClick={props.onClose}
                 ></button>
-                <form className="popup__form" name={props.name} noValidate onSubmit={props.onSubmit}>
+                <form
+                    className="popup__form"
+                    name={props.name}
+                    noValidate
+                    onSubmit={props.onSubmit}
+                >
                     {props.children}
+                    <button
+                        type="submit"
+                        className={submitButtonClassName}
+                        disabled={props.isDisabled}
+                    >
+                        {props.buttonText}
+                    </button>
                 </form>
             </div>
         </div>

@@ -26,7 +26,7 @@ function Card(props) {
     }
 
     function handleDeleteClick() {
-        props.onCardDelete(props.card);
+        props.onConfirm(props.card);
     }
 
     return (
@@ -41,6 +41,7 @@ function Card(props) {
                 type="button"
                 aria-label="Удалить"
                 className={cardDeleteButtonClassName}
+                // onClick={props.onConfirm}
                 onClick={handleDeleteClick}
             ></button>
             <div className="card__info">

@@ -39,7 +39,8 @@ function Main(props) {
                             key={cardInfo._id}
                             onCardClick={props.onShowImage}
                             onCardLike={props.onCardLike}
-                            onCardDelete={props.onCardDelete}
+                            // onCardDelete={props.onCardDelete}
+                            onConfirm={props.onConfirm}
                         />
                     ))}
                 </ul>

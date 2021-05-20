@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import api from "./../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
-import { renderLoading } from "../utils/utils";
+import ConfirmationPopup from "./ConfirmationPopup";
 
 function App() {
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -18,6 +17,10 @@ function App() {
     const [selectedCard, setSelectedCard] = useState({});
     const [currentUser, setCurrentUser] = useState(null);
     const [cards, setCards] = React.useState([]);
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [isConfirmationPopupOpen, setIsConfirmationPopupOpen] =
+        useState(false);
+    const [deletedCard, setDeletedCard] = useState({});
 
     function handleEditAvatarClick() {
         setIsEditAvatarPopupOpen(true);
@@ -31,14 +34,17 @@ function App() {
         setIsAddPlacePopupOpen(true);
     }
 
+    function handleConfirmationClick(cardData) {
+        setIsConfirmationPopupOpen(true);
+        setDeletedCard(cardData);
+    }
+
     function closeAllPopups() {
         setIsEditAvatarPopupOpen(false);
         setIsEditProfilePopupOpen(false);
         setIsAddPlacePopupOpen(false);
+        setIsConfirmationPopupOpen(false);
         setSelectedCard({});
-        renderLoading(".popup_type_profile", true);
-        renderLoading(".popup_type_edit-avatar", true);
-        renderLoading(".popup_type_add-card", true);
     }
 
     function handleCardClick(cardData) {
@@ -46,12 +52,12 @@ function App() {
     }
 
     function handleUpdateUser(data) {
-        renderLoading(".popup_type_profile", false);
+        setIsLoading(true);
         api.setUserInfo(data)
             .then((userData) => {
-                renderLoading(".popup_type_profile", true);
+                setIsLoading(false);
                 setCurrentUser(userData);
-                this.onClose();
+                closeAllPopups();
             })
             .catch((err) => {
                 console.log(err);
@@ -59,12 +65,12 @@ function App() {
     }
 
     function handleUpdateAvatar(obj) {
-        renderLoading(".popup_type_edit-avatar", false);
+        setIsLoading(true);
         api.setUserAvatar(obj.avatar)
             .then((userData) => {
-                renderLoading(".popup_type_edit-avatar", true);
+                setIsLoading(false);
                 setCurrentUser(userData);
-                this.onClose();
+                closeAllPopups();
             })
             .catch((err) => {
                 console.log(err);
@@ -95,6 +101,7 @@ function App() {
         api.deleteCard(card._id)
             .then((cardData) => {
                 setCards((state) => state.filter((c) => c._id !== card._id));
+                closeAllPopups();
             })
             .catch((err) => {
                 console.log(err);
@@ -102,12 +109,12 @@ function App() {
     }
 
     function handleAddPlaceSubmit(place) {
-        renderLoading(".popup_type_add-card", false);
+        setIsLoading(true);
         api.addCard(place)
             .then((newCard) => {
-                renderLoading(".popup_type_add-card", true);
+                setIsLoading(false);
                 setCards([newCard, ...cards]);
-                this.onClose();
+                closeAllPopups();
             })
             .catch((err) => {
                 console.log(err);
@@ -134,6 +141,19 @@ function App() {
             });
     }, []);
 
+    React.useEffect(() => {
+        function onCloseByEsc(event) {
+            if (event.key === "Escape") {
+                closeAllPopups();
+            }
+        }
+
+        document.addEventListener("keydown", onCloseByEsc);
+        return () => {
+            document.removeEventListener("keydown", onCloseByEsc);
+        };
+    }, []);
+
     return (
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page">
@@ -146,7 +166,8 @@ function App() {
                         onShowImage={handleCardClick}
                         cards={cards}
                         onCardLike={handleCardLike}
-                        onCardDelete={handleCardDelete}
+                        // onCardDelete={handleCardDelete}
+                        onConfirm={handleConfirmationClick}
                     />
                     <Footer />
                 </div>
@@ -155,25 +176,29 @@ function App() {
                     isOpen={isEditProfilePopupOpen}
                     onClose={closeAllPopups}
                     onUpdateUser={handleUpdateUser}
+                    buttonText={isLoading ? "Сохранение..." : "Сохранить"}
                 />
 
                 <AddPlacePopup
                     isOpen={isAddPlacePopupOpen}
                     onClose={closeAllPopups}
                     onAddPlace={handleAddPlaceSubmit}
+                    buttonText={isLoading ? "Сохранение..." : "Создать"}
                 />
 
                 <EditAvatarPopup
                     isOpen={isEditAvatarPopupOpen}
                     onClose={closeAllPopups}
                     onUpdateAvatar={handleUpdateAvatar}
+                    buttonText={isLoading ? "Сохранение..." : "Создать"}
                 />
 
-                <PopupWithForm title="Вы уверены?" name="confirm">
-                    <button type="submit" className="popup__save-button">
-                        Да
-                    </button>
-                </PopupWithForm>
+                <ConfirmationPopup
+                    isOpen={isConfirmationPopupOpen}
+                    onClose={closeAllPopups}
+                    onCardDelete={handleCardDelete}
+                    card={deletedCard}
+                />
 
                 <ImagePopup card={selectedCard} onClose={closeAllPopups} />
             </div>
