@@ -6,24 +6,11 @@ function PopupWithForm(props) {
         props.isDisabled ? "popup__save-button_inactive" : ""
     }`;
 
-    function onCloseByEsc(event) {
-        if (event.key === "Escape") {
-            props.onClose();
-        }
-    }
-
     function onCloseByOverlay(event) {
         if (event.target === event.currentTarget) {
             props.onClose();
         }
     }
-
-    React.useEffect(() => {
-        document.addEventListener("keydown", onCloseByEsc);
-        return () => {
-            document.removeEventListener("keydown", onCloseByEsc);
-        };
-    });
 
     return (
         <div

@@ -196,6 +196,7 @@ function App() {
                     onClose={closeAllPopups}
                     onCardDelete={handleCardDelete}
                     card={deletedCard}
+                    buttonText="Да"
                 />
 
                 <ImagePopup card={selectedCard} onClose={closeAllPopups} />

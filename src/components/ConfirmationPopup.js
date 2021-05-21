@@ -11,7 +11,7 @@ function ConfirmationPopup(props) {
         <PopupWithForm
             title="Вы уверены?"
             name="confirm"
-            buttonText="Да"
+            buttonText={props.buttonText}
             isOpen={props.isOpen}
             onClose={props.onClose}
             onSubmit={handleSubmit}
