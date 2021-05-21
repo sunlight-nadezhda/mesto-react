@@ -32,7 +32,7 @@ function PopupWithForm(props) {
             }`}
             onMouseDown={onCloseByOverlay}
         >
-            <div className="popup__container">
+            <div className={`popup__container popup__container_type_${props.name}`}>
                 <h2 className="popup__title">{props.title}</h2>
                 <button
                     type="button"
@@ -41,7 +41,7 @@ function PopupWithForm(props) {
                     onClick={props.onClose}
                 ></button>
                 <form
-                    className="popup__form"
+                    className={`popup__form popup__form_type_${props.name}`}
                     name={props.name}
                     noValidate
                     onSubmit={props.onSubmit}

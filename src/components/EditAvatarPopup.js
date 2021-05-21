@@ -3,7 +3,6 @@ import PopupWithForm from "./PopupWithForm";
 
 function EditAvatarPopup(props) {
     const inputEditAvatarRef = React.useRef();
-    const [isDisabled, setIsDisabled] = React.useState(true);
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -13,16 +12,7 @@ function EditAvatarPopup(props) {
         });
 
         inputEditAvatarRef.current.value = "";
-        setIsDisabled(true);
     }
-
-    // useEffect(() => {
-    //     if (inputEditAvatarRef.current.value === "") {
-    //         setIsDisabled(true);
-    //     } else {
-    //         setIsDisabled(false);
-    //     }
-    // }, [inputEditAvatarRef.current.value])
 
     return (
         <PopupWithForm
@@ -32,7 +22,7 @@ function EditAvatarPopup(props) {
             isOpen={props.isOpen}
             onClose={props.onClose}
             onSubmit={handleSubmit}
-            isDisabled={isDisabled}
+            isDisabled={false}
         >
             <label className="popup__form-field">
                 <input

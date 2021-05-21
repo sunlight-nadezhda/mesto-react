@@ -7,7 +7,6 @@ function EditProfilePopup(props) {
     const [description, setDescription] = React.useState("");
     const [isDisabled, setIsDisabled] = React.useState(true);
 
-    // Подписка на контекст
     const currentUser = React.useContext(CurrentUserContext);
 
     function handleChangeName(e) {
@@ -19,10 +18,8 @@ function EditProfilePopup(props) {
     }
 
     function handleSubmit(e) {
-        // Запрещаем браузеру переходить по адресу формы
         e.preventDefault();
 
-        // Передаём значения управляемых компонентов во внешний обработчик
         props.onUpdateUser({
             name,
             about: description,
@@ -32,8 +29,6 @@ function EditProfilePopup(props) {
         setDescription(currentUser.about);
     }
 
-    // После загрузки текущего пользователя из API
-    // его данные будут использованы в управляемых компонентах.
     useEffect(() => {
         setName(currentUser ? currentUser.name : "");
         setDescription(currentUser ? currentUser.about : "");
