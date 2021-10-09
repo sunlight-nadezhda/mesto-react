@@ -12,18 +12,3 @@ export const renderLoading = (popupSelector, isAvailable) => {
     buttonSubmitElement.setAttribute('disabled', true);
   }
 };
-
-// export const renderLoading = (popupSelector, isAvailable) => {
-//   this.popupElement = document.querySelector(popupSelector);
-//   this.formElement = this.popupElement.querySelector('.popup__form');
-//   this.buttonSubmitElement = this.formElement.querySelector('.popup__save-button');
-//   this.buttonValue = this.buttonSubmitElement.textContent;
-
-//   if (isAvailable) {
-//     this.buttonSubmitElement.textContent = this.buttonValue;
-//     this.buttonSubmitElement.removeAttribute('disabled');
-//   } else {
-//     this.buttonSubmitElement.textContent = 'Сохранение...';
-//     this.buttonSubmitElement.setAttribute('disabled', true);
-//   }
-// };

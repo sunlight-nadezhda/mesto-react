@@ -164,7 +164,6 @@ function App() {
                         onShowImage={handleCardClick}
                         cards={cards}
                         onCardLike={handleCardLike}
-                        // onCardDelete={handleCardDelete}
                         onConfirm={handleConfirmationClick}
                     />
                     <Footer />
